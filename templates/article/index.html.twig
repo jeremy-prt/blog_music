@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/article.css') }}">
+{% endblock %}
+
+{% block title %}Blog Music - Articles{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>🎧 Blog Music : Les Derniers Articles 🎧</h1>
+
+        <div class="articles-grid">
+            {% for article in articles %}
+                <div class="article-card">
+                    
+                    <div class="article-cover" style="background-image: url('/uploads/covers/{{ article.coverImage }}');"></div>
+                    
+                    <div class="badge-category">{{ article.category }}</div>
+
+                    <div class="article-content">
+                        <h2>{{ article.title }}</h2>
+
+                        <div class="article-meta">
+                            Publié par <strong>{{ article.author.username }}</strong><br>
+                            le {{ article.createdAt|date('d/m/Y') }}
+                        </div>
+
+                        <div class="article-info">
+                            <strong>Artiste :</strong> {{ article.artist }}<br>
+                            <strong>Genre :</strong> {{ article.genre }}
+                        </div>
+
+                        <p>{{ article.content|slice(0, 100) ~ '...' }}</p>
+
+                        <div class="read-more">
+                            <a href="#">Lire plus</a>
+                        </div>
+                    </div>
+
+                </div>
+            {% else %}
+                <p>Aucun article à afficher pour l'instant !</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
